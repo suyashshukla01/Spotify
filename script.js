@@ -1,5 +1,3 @@
-console.log("Spotify Clone Script Loaded");
-
 let currentSong = new Audio();
 let songs = [];
 let currFolder = "";
@@ -19,7 +17,7 @@ async function displayAlbums() {
 
     for (let folder of folders) {
         try {
-            let res = await fetch(`/songs/${folder}/info.json`);
+            let res = await fetch(`songs/${folder}/info.json`);
             let info = await res.json();
 
             cardContainer.innerHTML += `
@@ -31,7 +29,7 @@ async function displayAlbums() {
                                 stroke-linejoin="round" />
                         </svg>
                     </div>
-                    <img src="/songs/${folder}/cover.jpg" alt="${info.title} cover art">
+                    <img src="songs/${folder}/cover.jpg" alt="${info.title} cover art">
                     <h2>${info.title}</h2>
                     <p>${info.description}</p>
                 </div>`;
@@ -53,7 +51,7 @@ async function getSongs(folder) {
     currFolder = folder;
 
     try {
-        let res = await fetch(`/songs/${folder}/info.json`);
+        let res = await fetch(`songs/${folder}/info.json`);
         let info = await res.json();
         songs = info.songs;
 
@@ -85,7 +83,7 @@ async function getSongs(folder) {
 }
 
 function playSong(track, pause = false) {
-    currentSong.src = `/songs/${currFolder}/${track}`;
+    currentSong.src = `songs/${currFolder}/${track}`;
     if (!pause) {
         currentSong.play();
         play.src = "img/pause.svg";
